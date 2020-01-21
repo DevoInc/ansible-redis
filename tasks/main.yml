@@ -1,0 +1,28 @@
+---
+
+- include: download.yml
+  tags:
+    - download
+
+- include: dependencies.yml
+
+- include: install.yml
+  tags:
+    - install
+
+- include: redis_config.yml
+  tags:
+    - config
+
+- include: redis_cluster-auth.yml
+  tags:
+    - cluster
+  when:
+    - redis_cluster_enabled == "yes" and redis_password is defined
+
+
+- include: redis_cluster-no-auth.yml
+  tags:
+    - cluster
+  when:
+    - redis_cluster_enabled == "yes" and redis_password is not defined
