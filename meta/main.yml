@@ -1,6 +1,6 @@
 galaxy_info:
   role_name: redis
-  author: Bostjan Bozic
+  author: Diego Padilla
   description: Ansible role to install Redis (standalone or cluster mode) and Redis Sentinel
   license: MIT
   min_ansible_version: 2.6
