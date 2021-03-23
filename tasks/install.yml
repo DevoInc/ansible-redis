@@ -18,11 +18,13 @@
   file:
     path: "{{ redis_install_dir }}"
     state: directory
+    mode: 0755
 
 - name: Create Redis folder in /etc
   file:
     path: "/etc/redis"
     state: directory
+    mode: 0755
 
 - name: Check if Redis user exists
   command: id {{ redis_user }}
