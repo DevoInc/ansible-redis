@@ -18,6 +18,8 @@
   file:
     path: "{{ redis_install_dir }}"
     state: directory
+    owner: redis
+    recurse: yes
     mode: 0755
 
 - name: Create Redis folder in /etc
