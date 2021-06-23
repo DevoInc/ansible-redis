@@ -74,3 +74,10 @@
     name: "{{ item }}"
     link: "/usr/bin/{{ item }}"
   with_items: "{{ redis_binaries.stdout_lines }}"
+
+- name: Ensure Redis bin directory has correct user and group
+  file:
+    path: "{{ redis_install_dir }}/bin"
+    state: directory
+    owner: redis
+    group: redis
