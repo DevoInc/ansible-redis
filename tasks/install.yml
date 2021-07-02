@@ -14,20 +14,6 @@
     chdir: /usr/local/src/redis-{{ redis_version }}
     creates: /usr/local/src/redis-{{ redis_version }}/src/redis-server
 
-- name: Create Redis install directory
-  file:
-    path: "{{ redis_install_dir }}"
-    state: directory
-    owner: redis
-    recurse: yes
-    mode: 0755
-
-- name: Create Redis folder in /etc
-  file:
-    path: "/etc/redis"
-    state: directory
-    mode: 0755
-
 - name: Check if Redis user exists
   command: id {{ redis_user }}
   ignore_errors: yes
@@ -49,6 +35,21 @@
     home: "{{ redis_install_dir }}"
     shell: /bin/false
     system: yes
+
+- name: Create Redis install directory
+  file:
+    path: "{{ redis_install_dir }}"
+    state: directory
+    owner: redis
+    group: redis
+    recurse: yes
+    mode: 0755
+
+- name: Create Redis folder in /etc
+  file:
+    path: "/etc/redis"
+    state: directory
+    mode: 0755
 
 - name: Create Redis folder in /var/run
   file:
@@ -73,3 +74,10 @@
     name: "{{ item }}"
     link: "/usr/bin/{{ item }}"
   with_items: "{{ redis_binaries.stdout_lines }}"
+
+- name: Ensure Redis bin directory has correct user and group
+  file:
+    path: "{{ redis_install_dir }}/bin"
+    state: directory
+    owner: redis
+    group: redis
