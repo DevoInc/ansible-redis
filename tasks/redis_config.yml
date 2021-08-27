@@ -74,6 +74,7 @@
     path: "{{ redis_install_dir }}"
     owner: "{{ redis_user }}"
     group: "{{ redis_group }}"
+    recurse: yes
 
 - name: Ensure that Redis is running
   service:
