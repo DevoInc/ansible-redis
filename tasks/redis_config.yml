@@ -69,6 +69,13 @@
 - name: Flush handlers to apply config changes
   meta: flush_handlers
 
+- name: Change ownership of Redis installation dir
+  file:
+    path: "{{ redis_install_dir }}"
+    owner: "{{ redis_user }}"
+    group: "{{ redis_group }}"
+    recurse: yes
+
 - name: Ensure that Redis is running
   service:
     name: "{{ redis_service_name }}"
